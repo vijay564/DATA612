@@ -32,32 +32,32 @@ Display the matrix dimensions
 dim(m)
 ```
 
-Split training and testing matrix, and replace the value from test set into "NA"
+#### Split training and testing matrix, and replace the value from test set into "NA"
 ```{r}
 training <- c(4,3,NA,NA,4,NA,1,2,NA,3,NA,2,NA,4,3,3,NA,NA,4,NA,2,4,1,NA,NA)
 training_m <- matrix(c(4,3,NA,NA,4,NA,1,2,NA,3,NA,2,NA,4,3,3,NA,NA,4,NA,2,4,1,NA,NA),nrow=5,byrow=TRUE, dimnames = list(row_name,col_name))
 testing_m <-c(5,3,2,3,4)
 ```
 
-Raw_Average
+#### Raw_Average
 ```{r}
 raw_average <- mean(training,na.rm=TRUE)
 raw_average
 ```
 
-RMSE for Training
+#### RMSE for Training
 ```{r}
 rmse_training <- sqrt(mean((training-raw_average)^2,na.rm = TRUE))
 rmse_training
 ```
 
-RMSE for Testing
+#### RMSE for Testing
 ```{r}
 rmse_testing <- sqrt(mean((testing_m-raw_average)^2))
 rmse_testing
 ```
 
-Finding Bias
+#### Finding Bias
 ```{r}
 training_m
 user_mean <- rowMeans(training_m,na.rm=TRUE)
@@ -79,7 +79,7 @@ book_bias <- book_mean - raw_average
 book_bias
 ```
 
-Baseline Predictor
+#### Baseline Predictor
 ```{r}
 user_bias_matrix<-matrix(c(user_bias[1],user_bias[1],user_bias[1],user_bias[1],user_bias[1],user_bias[2],user_bias[2],user_bias[2],user_bias[2],user_bias[2],user_bias[3],user_bias[3],user_bias[3],user_bias[3],user_bias[3],user_bias[4],user_bias[4],user_bias[4],user_bias[4],user_bias[4],user_bias[5],user_bias[5],user_bias[5],user_bias[5],user_bias[5]),nrow=5,byrow = TRUE)
 
@@ -92,7 +92,7 @@ book_bias_matrix <-matrix(c(book_bias[1],book_bias[1],book_bias[1],book_bias[1],
 book_bias_matrix
 ```
 
-RMSE for test and train
+#### RMSE for test and train
 ```{r}
 m[is.na(m)]<-0
 baseline_predictor <- m+user_bias_matrix+book_bias_matrix
@@ -116,16 +116,19 @@ rmse_bp_test <- sqrt((0+(3-2.2857)^2+(2-2.2857)^2+(3-2.2857)^2+(4-3.952581)^2)/5
 rmse_bp_test
 ```
 
-Percentage Improvement for Test
+#### Percentage Improvement for Test
 ```{r}
 percent_improvement_test <- (1-rmse_bp_test/rmse_testing)*100
 percent_improvement_test
 ```
 
 
-Percentage Improvement for Training
+#### Percentage Improvement for Training
 ```{r}
 percent_improvement_training <- (1-rmse_bp/rmse_training)*100
 percent_improvement_training
 ```
 
+### Summary
+
+#### percentage of improvement for test is better which is 59% when compared to training which is -74%. This indicates that after baseline predictor it didnt improve our user-item matrix. This might be because of too many Null values and our dataset values ratings are not great.

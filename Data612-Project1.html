@@ -394,23 +394,32 @@ m</code></pre>
 <p>Display the matrix dimensions</p>
 <pre class="r"><code>dim(m)</code></pre>
 <pre><code>## [1] 5 5</code></pre>
-<p>Split training and testing matrix, and replace the value from test set into “NA”</p>
+<div id="split-training-and-testing-matrix-and-replace-the-value-from-test-set-into-na" class="section level4">
+<h4>Split training and testing matrix, and replace the value from test set into “NA”</h4>
 <pre class="r"><code>training &lt;- c(4,3,NA,NA,4,NA,1,2,NA,3,NA,2,NA,4,3,3,NA,NA,4,NA,2,4,1,NA,NA)
 training_m &lt;- matrix(c(4,3,NA,NA,4,NA,1,2,NA,3,NA,2,NA,4,3,3,NA,NA,4,NA,2,4,1,NA,NA),nrow=5,byrow=TRUE, dimnames = list(row_name,col_name))
 testing_m &lt;-c(5,3,2,3,4)</code></pre>
-<p>Raw_Average</p>
+</div>
+<div id="raw_average" class="section level4">
+<h4>Raw_Average</h4>
 <pre class="r"><code>raw_average &lt;- mean(training,na.rm=TRUE)
 raw_average</code></pre>
 <pre><code>## [1] 2.857143</code></pre>
-<p>RMSE for Training</p>
+</div>
+<div id="rmse-for-training" class="section level4">
+<h4>RMSE for Training</h4>
 <pre class="r"><code>rmse_training &lt;- sqrt(mean((training-raw_average)^2,na.rm = TRUE))
 rmse_training</code></pre>
 <pre><code>## [1] 1.059457</code></pre>
-<p>RMSE for Testing</p>
+</div>
+<div id="rmse-for-testing" class="section level4">
+<h4>RMSE for Testing</h4>
 <pre class="r"><code>rmse_testing &lt;- sqrt(mean((testing_m-raw_average)^2))
 rmse_testing</code></pre>
 <pre><code>## [1] 1.15529</code></pre>
-<p>Finding Bias</p>
+</div>
+<div id="finding-bias" class="section level4">
+<h4>Finding Bias</h4>
 <pre class="r"><code>training_m</code></pre>
 <pre><code>##        NLP with Python Think Python R for Datascience
 ## Vijay                4            3                NA
@@ -448,7 +457,9 @@ book_bias</code></pre>
 ##                  -1.3571429                   1.1428571 
 ##    DataScience From Scratch 
 ##                   0.4761905</code></pre>
-<p>Baseline Predictor</p>
+</div>
+<div id="baseline-predictor" class="section level4">
+<h4>Baseline Predictor</h4>
 <pre class="r"><code>user_bias_matrix&lt;-matrix(c(user_bias[1],user_bias[1],user_bias[1],user_bias[1],user_bias[1],user_bias[2],user_bias[2],user_bias[2],user_bias[2],user_bias[2],user_bias[3],user_bias[3],user_bias[3],user_bias[3],user_bias[3],user_bias[4],user_bias[4],user_bias[4],user_bias[4],user_bias[4],user_bias[5],user_bias[5],user_bias[5],user_bias[5],user_bias[5]),nrow=5,byrow = TRUE)
 
 user_bias_matrix</code></pre>
@@ -467,7 +478,9 @@ book_bias_matrix</code></pre>
 ## [3,] 0.1428571 -0.3571429 -1.357143 1.142857 0.4761905
 ## [4,] 0.1428571 -0.3571429 -1.357143 1.142857 0.4761905
 ## [5,] 0.1428571 -0.3571429 -1.357143 1.142857 0.4761905</code></pre>
-<p>RMSE for test and train</p>
+</div>
+<div id="rmse-for-test-and-train" class="section level4">
+<h4>RMSE for test and train</h4>
 <pre class="r"><code>m[is.na(m)]&lt;-0
 baseline_predictor &lt;- m+user_bias_matrix+book_bias_matrix
 baseline_predictor</code></pre>
@@ -505,14 +518,25 @@ rmse_bp</code></pre>
 <pre class="r"><code>rmse_bp_test &lt;- sqrt((0+(3-2.2857)^2+(2-2.2857)^2+(3-2.2857)^2+(4-3.952581)^2)/5)
 rmse_bp_test</code></pre>
 <pre><code>## [1] 0.4699621</code></pre>
-<p>Percentage Improvement for Test</p>
+</div>
+<div id="percentage-improvement-for-test" class="section level4">
+<h4>Percentage Improvement for Test</h4>
 <pre class="r"><code>percent_improvement_test &lt;- (1-rmse_bp_test/rmse_testing)*100
 percent_improvement_test</code></pre>
 <pre><code>## [1] 59.32083</code></pre>
-<p>Percentage Improvement for Training</p>
+</div>
+<div id="percentage-improvement-for-training" class="section level4">
+<h4>Percentage Improvement for Training</h4>
 <pre class="r"><code>percent_improvement_training &lt;- (1-rmse_bp/rmse_training)*100
 percent_improvement_training</code></pre>
 <pre><code>## [1] -73.50351</code></pre>
+</div>
+</div>
+<div id="summary" class="section level3">
+<h3>Summary</h3>
+<div id="percentage-of-improvement-for-test-is-better-which-is-59-when-compared-to-training-which-is--74.-this-indicates-that-after-baseline-predictor-it-didnt-improve-our-user-item-matrix.-this-might-be-because-of-too-many-null-values-and-our-dataset-values-ratings-are-not-great." class="section level4">
+<h4>percentage of improvement for test is better which is 59% when compared to training which is -74%. This indicates that after baseline predictor it didnt improve our user-item matrix. This might be because of too many Null values and our dataset values ratings are not great.</h4>
+</div>
 </div>
 </div>
 

@@ -1,0 +1,36 @@
+---
+title: "Data 612 - Research Discussion 1"
+author: "Vijaya Cherukuri"
+date: "6/4/2020"
+output: html_document
+---
+
+## Assignment
+
+Now that we have covered basic techniques for recommender systems, choose one commercial recommender and describe how you think it works (content-based, collaborative filtering, etc). Does the technique deliver a good experience or are the recommendations off-target?
+
+You may also choose one of the three non-personalized recommenders (below) we went over in class and describe the technique and which of the three you prefer to use.
+
+*Metacritic:* How We Create the Metascore Magic
+
+*Rotten Tomatoes:* About Rotten Tomatoes
+
+*IMDB:* FAQ for IMDb Ratings
+
+
+## IMDB Recommender System
+
+IMDB uses recommendation systems by which system tries to find the links between contents through observing users patterns of watching films and reviews : - content-based recommendation systems which suggests movies as per “People who liked this also liked”.
+- tag-based systems where IMDb can provide certain tags (genres of movies), and users can tag content themselves. Netflix model latent factor model is an example.
+
+Recommendation can be performed in these ways:
+Identification of movies rated by predefined appreciated threshold.
+Identification of unwatched movies similar to the appreciated ones.
+
+### Challenges:
+1) There needs to be enough other users already in the system to find a match.
+2) If there are many items to be recommended, even if there are many users, the user/ratings matrix is sparse, and it is hard to find users that have rated the same items.
+
+### Possible Approach:
+We could use other metrics based on the interaction between users and content. Number of likes, number of comments and watch time. 
+Action lablels by click through=1, like=2, comment=3 and share=4, this allows us to calculate the similarity to determine how strong a tie is between users

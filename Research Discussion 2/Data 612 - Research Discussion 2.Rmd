@@ -1,0 +1,28 @@
+---
+title: "Data612-Research Discussion 2"
+author: "Vijaya Cherukuri"
+date: "6/18/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Reseacrh Discussion 2
+
+##### For this discussion item, please watch the following talk and summarize what you found to be the most important or interesting points. The first half will cover some of the mathematical techniques covered in this unit’s reading and the second half some of the data management challenges in an industrial-scale recommendation system.
+
+#### In this video the ML engineer Chris Johnson at Spotify spoke about how to effectively scale collaborative filtering models in order to make music recommendations to Spotify’s users,such as Daily Discovery or Radio. I found the most interesting points to be not only how to build the models but also what needs to be taken into consideration and what is of utmost importance. We are all aware that the recommendations happen in real time and therefore require a lot of local memory which could potentially slow the process. Below are the 3 images johnson presented:
+
+![First attempt](E:/github/MS/DATA612/Research Discussion 2/1.png)
+
+![Second attempt](E:/github/MS/DATA612/Research Discussion 2/2.png)
+
+![Third attempt](E:/github/MS/DATA612/Research Discussion 2/3.png)
+
+#### In the first attempt everything is fully broadcasted but the problem arises because nothing is being cached and it results in IO bottleneck since the ratings require shuffling.
+
+#### The second attempt is ’full gridify’where the ratings are grouped into KxL matrix and cached. The pros of this model are that because the ratings ar cached they are never shuffled. Then each partition only reqires a subset of each item vectors in memory after each iteration.
+
+#### The third attempt, Johnson calls ‘half-gridify’ where vectors are joinedd with ratings partitions. In this case, each partition could potentially require a copy of each item vector and they may not all fit into memory. And because of that might also reqiure more local memory than ‘full gridify’.
